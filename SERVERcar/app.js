@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://car-rental-with-suraj.netlify.app"
+    "https://radiant-llama-3e88b6.netlify.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
