@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const cookie = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 const web = require('./route/web')
 const connectdb = require('./db/connectDB')
 const cors = require('cors')
@@ -11,28 +11,39 @@ const upload = require("./config/multer");
 
 
 env.config()
-//cors for fetching
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
-}))
+  origin: [
+    "http://localhost:5173",
+    "https://car-rental-with-suraj.netlify.app"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 
-// app.use(fileUpload({
-//   useTempFiles: true,
-//   tempFileDir: "/tmp/",   // zaroori hai cloudinary ke liye
-// }));
-
+app.use(express.urlencoded({ extended: true }));
 
 //mogoose
 connectdb()
 //cookie
-app.use(cookie())
+app.use(cookieParser());
 
 app.use(express.json())
 
 app.use('/api', web)
 
-app.listen(process.env.PORT, (req, res) => {
-    console.log(`server start localhost:${process.env.PORT}`)
+app.get('/', (req, res) => {
+  res.send({
+    activeStatus: true,
+    error: false,
+  })
 })
+
+module.exports = app;

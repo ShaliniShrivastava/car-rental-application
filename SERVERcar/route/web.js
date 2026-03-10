@@ -42,13 +42,13 @@ route.delete("/reject/:id", isAuthenticated, isAdmin, StaffController.rejectStaf
 route.post("/carinsert", upload.single("image"), CarController.carCreate);
 route.get('/cardisplay', CarController.carDisplay)
 route.get('/carview/:id', CarController.carView)
-route.put('/carupdate/:id', upload.single("image"),CarController.carUpdate)
+route.put('/carupdate/:id', upload.single("image"), CarController.carUpdate)
 route.delete('/cardelete/:id', CarController.carDelete)
 //// car Add /////
 
 // Booking Routes
 route.post('/bookinginsert',bookingController.createBooking)
-route.get('/userdisplay',isAuthenticated,bookingController.userBookedDisplay)
+route.get('/userdisplay',bookingController.userBookedDisplay)
 route.get('/bookingdisplay', bookingController.bookingDisplay)
 route.put("/bookings/:id/approve", bookingController.approveBooking);
 route.put("/bookings/:id/reject", bookingController.rejectBooking);

@@ -7,7 +7,7 @@ class userController {
     static async register(req, res) {
         try {
             const { name, email, password, number, address, dob } = req.body;
-            
+
 
             const existingCustomer = await Customer.findOne({ email });
             if (existingCustomer) {
@@ -23,7 +23,7 @@ class userController {
                 number,
                 address,
                 dob,
-                
+
             });
 
             await newCustomer.save();
@@ -67,15 +67,22 @@ class userController {
                 name: customer.name,
                 email: customer.email
             });
+
         } catch (error) {
             res.status(500).json({ message: "Server error", error });
         }
     }
 
+
     // 🚪 Logout Customer
     static async logout(req, res) {
         try {
-            res.clearCookie("token");
+            res.clearCookie("token", {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+                path: "/"
+            });
             res.status(200).json({ message: "Customer logged out successfully" });
         } catch (error) {
             res.status(500).json({ message: "Error during logout", error });

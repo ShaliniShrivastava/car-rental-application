@@ -37,8 +37,7 @@ class CarController {
             console.error(error);
             res.status(500).json({ message: "Internal Server Error" });
         }
-    }
-
+    };
 
     static carDisplay = async (req, res) => {
         try {
@@ -119,7 +118,6 @@ class CarController {
             res.status(500).json({ message: "Internal Server Error" });
         }
     };
-
 
 
 
